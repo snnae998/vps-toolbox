@@ -89,3 +89,8 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 
 - 存储守护清理脚本源自 [vps99.sh](https://github.com/snnae998/vps99.sh)
 - SSH 加固脚本：[key.sh](https://github.com/snnae998/key.sh)
+- 单、多线程测速：[TaierSpeedtest](https://github.com/MiaM1ku/taierspeedtest)
+- TCP 线路质量测试：[TcpQuality](https://github.com/ibsgss/TcpQuality)
+- 节点综合质量测试：[NodeQuality](https://github.com/LloydAsp/NodeQuality)
+- Snell 一键安装：[Snell.sh](https://git.io/Snell.sh)
+- Xray 可视化面板：[X-UI](https://github.com/FranzKafkaYu/x-ui)
