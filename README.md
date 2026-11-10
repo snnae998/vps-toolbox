@@ -17,6 +17,8 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 1. 一键初始化你的VPS
 2. 一键加固你的VPS
 3. 存储守护（每周自动清理）
+4. 单、多线程测速
+5. TcpQuality
 0. 退出
 =================================
 ```
@@ -54,6 +56,14 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 - 无用的 Docker 镜像与容器日志
 
 防止磁盘被日志和缓存撑爆。
+
+## 4. 单、多线程测速
+
+调用 [TaierSpeedtest](https://github.com/MiaM1ku/taierspeedtest)，单线程与多线程下载测速。
+
+## 5. TcpQuality
+
+调用 [TcpQuality](https://github.com/ibsgss/TcpQuality)，测试 TCP 线路质量（回程路由、丢包、延迟）。
 
 ## 适用系统
 
