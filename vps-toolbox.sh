@@ -6,6 +6,7 @@
 # 3. 存储守护（每周自动清理）
 # 4. 单、多线程测速（TaierSpeedtest）
 # 5. TcpQuality（TCP 线路质量测试）
+# 6. NodeQuality（节点综合质量测试）
 # ============================================================
 
 # --- 初始化子功能 ---
@@ -175,15 +176,17 @@ while true; do
   echo "3. 存储守护（每周自动清理）"
   echo "4. 单、多线程测速"
   echo "5. TcpQuality"
+  echo "6. NodeQuality"
   echo "0. 退出"
   echo "================================="
-  read -rp "请选择 [0-5]: " choice
+  read -rp "请选择 [0-6]: " choice
   case "$choice" in
     1) init_menu ;;
     2) bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/key.sh/main/key.sh) ;;
     3) storage_guard ;;
     4) bash <(curl -fsSL https://raw.githubusercontent.com/MiaM1ku/taierspeedtest/main/run.sh) ;;
     5) bash <(curl -fsSL https://raw.githubusercontent.com/ibsgss/TcpQuality/main/runTcpQuality.sh) ;;
+    6) bash <(curl -sL https://run.NodeQuality.com) ;;
     0) echo "退出。"; exit 0 ;;
     *) echo "无效选项，请重新选择！"; sleep 1 ;;
   esac
