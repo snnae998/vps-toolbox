@@ -73,6 +73,10 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 
 下载并运行 Snell 一键安装脚本（`https://git.io/Snell.sh`），在 VPS 上部署 Snell 代理服务。
 
+## 8. X-UI
+
+调用 [X-UI](https://github.com/FranzKafkaYu/x-ui) 安装脚本，部署 Xray 可视化管理面板。
+
 ## 适用系统
 
 - Debian / Ubuntu（apt）
