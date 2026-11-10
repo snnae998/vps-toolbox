@@ -69,6 +69,10 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 
 调用 [NodeQuality](https://run.NodeQuality.com)，节点综合质量测试（IP 质量、硬件、网络、回程路由、端口）。
 
+## 7. 一键Snell
+
+下载并运行 Snell 一键安装脚本（`https://git.io/Snell.sh`），在 VPS 上部署 Snell 代理服务。
+
 ## 适用系统
 
 - Debian / Ubuntu（apt）
