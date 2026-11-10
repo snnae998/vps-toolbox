@@ -65,6 +65,10 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 
 调用 [TcpQuality](https://github.com/ibsgss/TcpQuality)，测试 TCP 线路质量（回程路由、丢包、延迟）。
 
+## 6. NodeQuality
+
+调用 [NodeQuality](https://run.NodeQuality.com)，节点综合质量测试（IP 质量、硬件、网络、回程路由、端口）。
+
 ## 适用系统
 
 - Debian / Ubuntu（apt）
