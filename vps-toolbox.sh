@@ -4,6 +4,8 @@
 # 1. 一键初始化你的VPS（全自动/单项可选）
 # 2. 一键加固你的VPS（SSH安全，交互菜单）
 # 3. 存储守护（每周自动清理）
+# 4. 单、多线程测速（TaierSpeedtest）
+# 5. TcpQuality（TCP 线路质量测试）
 # ============================================================
 
 # --- 初始化子功能 ---
@@ -171,13 +173,17 @@ while true; do
   echo "1. 一键初始化你的VPS"
   echo "2. 一键加固你的VPS"
   echo "3. 存储守护（每周自动清理）"
+  echo "4. 单、多线程测速"
+  echo "5. TcpQuality"
   echo "0. 退出"
   echo "================================="
-  read -rp "请选择 [0-3]: " choice
+  read -rp "请选择 [0-5]: " choice
   case "$choice" in
     1) init_menu ;;
     2) bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/key.sh/main/key.sh) ;;
     3) storage_guard ;;
+    4) bash <(curl -fsSL https://raw.githubusercontent.com/MiaM1ku/taierspeedtest/main/run.sh) ;;
+    5) bash <(curl -fsSL https://raw.githubusercontent.com/ibsgss/TcpQuality/main/runTcpQuality.sh) ;;
     0) echo "退出。"; exit 0 ;;
     *) echo "无效选项，请重新选择！"; sleep 1 ;;
   esac
