@@ -19,6 +19,9 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 3. 存储守护（每周自动清理）
 4. 单、多线程测速
 5. TcpQuality
+6. NodeQuality
+7. 一键Snell
+8. X-UI
 0. 退出
 =================================
 ```
