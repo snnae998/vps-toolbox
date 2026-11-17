@@ -32,14 +32,16 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 
 | 序号 | 功能 | 说明 |
 |---|---|---|
-| 1 | 装基础工具 | 安装 curl、wget、unzip |
-| 2 | IPv4优先 | 修改 `/etc/gai.conf`，优先使用 IPv4 |
-| 3 | IPv6检查修复 | 检查 IPv6 是否正常，坏了自动禁用 |
-| 4 | 时间同步修复 | 检查 NTP 同步，未同步自动安装并开启 |
-| 5 | 开启BBR | 检查 TCP 拥塞控制，未开启自动启用 BBR |
-| 6 | 改时区 | 设置时区为 Asia/Shanghai |
-| 7 | 系统更新 | `apt update && apt upgrade -y` |
-| 8 | 全部运行 | 依次执行 1–7 |
+| 1 | 改主机名 | 输入新主机名，写入 `/etc/hostname` 并立即生效（留空跳过） |
+| 2 | 装基础工具 | 安装 curl、wget、unzip |
+| 3 | IPv4优先 | 修改 `/etc/gai.conf`，优先使用 IPv4 |
+| 4 | IPv6检查修复 | 检查 IPv6 是否正常，坏了自动禁用 |
+| 5 | 时间同步修复 | 检查 NTP 同步，未同步自动安装并开启 |
+| 6 | 开启BBR | 检查 TCP 拥塞控制，未开启自动启用 BBR |
+| 7 | 改时区 | 设置时区为 Asia/Shanghai |
+| 8 | 设置DNS | 设为 1.1.1.1 / 8.8.8.8，自动适配 dhcpcd、systemd-resolved 或直改 resolv.conf，重启不丢失 |
+| 9 | 系统更新 | 非交互 `apt upgrade`，配置文件一律保留本地版本，全程不弹窗 |
+| 10 | 全部运行 | 依次执行 1–9 |
 
 ## 2. 一键加固你的VPS
 

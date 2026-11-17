@@ -81,14 +81,52 @@ init_timezone() {
   echo "✅ 完成"
 }
 
+init_hostname() {
+  echo "[改主机名]..."
+  read -rp "输入新主机名（留空跳过）: " hn
+  if [ -z "$hn" ]; then
+    echo "已跳过"
+    return
+  fi
+  echo "$hn" > /etc/hostname
+  hostname "$hn"
+  if grep -q '^127\.0\.1\.1' /etc/hosts 2>/dev/null; then
+    sed -i "s/^127\.0\.1\.1.*/127.0.1.1 $hn/" /etc/hosts
+  fi
+  echo "✅ 主机名已改为 $hn（新开终端后提示符生效）"
+}
+
+init_dns() {
+  echo "[设置DNS]..."
+  if grep -q "nameserver 1.1.1.1" /etc/resolv.conf 2>/dev/null && grep -q "nameserver 8.8.8.8" /etc/resolv.conf 2>/dev/null; then
+    echo "✅ DNS 已是 1.1.1.1 / 8.8.8.8，无需处理"
+    return
+  fi
+  if [ -f /etc/dhcpcd.conf ]; then
+    IFACE=$(ip route show default 2>/dev/null | awk '/default/ {print $5; exit}')
+    [ -z "$IFACE" ] && IFACE=eth0
+    grep -q "static domain_name_servers" /etc/dhcpcd.conf || printf 'interface %s\nstatic domain_name_servers=1.1.1.1 8.8.8.8\n' "$IFACE" >> /etc/dhcpcd.conf
+    systemctl restart dhcpcd 2>/dev/null || service dhcpcd restart
+  elif [ -L /etc/resolv.conf ] && readlink /etc/resolv.conf | grep -q systemd; then
+    mkdir -p /etc/systemd/resolved.conf.d
+    printf '[Resolve]\nDNS=1.1.1.1 8.8.8.8\n' > /etc/systemd/resolved.conf.d/dns.conf
+    systemctl restart systemd-resolved
+  else
+    printf 'nameserver 1.1.1.1\nnameserver 8.8.8.8\n' > /etc/resolv.conf
+  fi
+  echo "--- 设置后状态 ---"
+  grep nameserver /etc/resolv.conf
+  echo "✅ 完成"
+}
+
 init_update() {
   echo "[系统更新]..."
-  apt update && apt upgrade -y
+  DEBIAN_FRONTEND=noninteractive apt update && DEBIAN_FRONTEND=noninteractive apt upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   echo "✅ 完成"
 }
 
 init_all() {
-  init_tools; init_ipv4; init_ipv6; init_time; init_bbr; init_timezone; init_update
+  init_hostname; init_tools; init_ipv4; init_ipv6; init_time; init_bbr; init_timezone; init_dns; init_update
   echo "==================== 初始化全部完成 ===================="
 }
 
@@ -97,26 +135,30 @@ init_menu() {
   while true; do
     clear
     echo "================ 一键初始化你的VPS ================"
-    echo "1. 装基础工具"
-    echo "2. IPv4优先"
-    echo "3. IPv6检查修复"
-    echo "4. 时间同步修复"
-    echo "5. 开启BBR"
-    echo "6. 改时区"
-    echo "7. 系统更新"
-    echo "8. 全部运行"
+    echo "1. 改主机名"
+    echo "2. 装基础工具"
+    echo "3. IPv4优先"
+    echo "4. IPv6检查修复"
+    echo "5. 时间同步修复"
+    echo "6. 开启BBR"
+    echo "7. 改时区"
+    echo "8. 设置DNS（1.1.1.1 / 8.8.8.8）"
+    echo "9. 系统更新"
+    echo "10. 全部运行"
     echo "0. 返回主菜单"
     echo "======================================================"
-    read -rp "请选择 [0-8]: " c
+    read -rp "请选择 [0-10]: " c
     case "$c" in
-      1) init_tools ;;
-      2) init_ipv4 ;;
-      3) init_ipv6 ;;
-      4) init_time ;;
-      5) init_bbr ;;
-      6) init_timezone ;;
-      7) init_update ;;
-      8) init_all ;;
+      1) init_hostname ;;
+      2) init_tools ;;
+      3) init_ipv4 ;;
+      4) init_ipv6 ;;
+      5) init_time ;;
+      6) init_bbr ;;
+      7) init_timezone ;;
+      8) init_dns ;;
+      9) init_update ;;
+      10) init_all ;;
       0) return ;;
       *) echo "无效选项！"; sleep 1 ;;
     esac
