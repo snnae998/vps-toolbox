@@ -9,6 +9,7 @@
 # 6. NodeQuality（节点综合质量测试）
 # 7. 一键Snell（安装 Snell 代理）
 # 8. X-UI（安装 X-UI 面板）
+# 9. 一键检测送中（YouTube 对本机出口的地区判定）
 # ============================================================
 
 # --- 初始化子功能 ---
@@ -223,9 +224,10 @@ while true; do
   echo "6. NodeQuality"
   echo "7. 一键Snell"
   echo "8. X-UI"
+  echo "9. 一键检测送中"
   echo "0. 退出"
   echo "================================="
-  read -rp "请选择 [0-8]: " choice
+  read -rp "请选择 [0-9]: " choice
   case "$choice" in
     1) init_menu ;;
     2) bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/key.sh/main/key.sh) ;;
@@ -235,6 +237,7 @@ while true; do
     6) bash <(curl -sL https://run.NodeQuality.com) ;;
     7) wget -O snell.sh --no-check-certificate https://git.io/Snell.sh && chmod +x snell.sh && ./snell.sh ;;
     8) bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/master/install.sh) ;;
+    9) bash <(curl -sL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/songzhong.sh) ;;
     0) echo "退出。"; exit 0 ;;
     *) echo "无效选项，请重新选择！"; sleep 1 ;;
   esac
