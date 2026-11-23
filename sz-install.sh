@@ -26,8 +26,18 @@ chmod 600 /etc/sz-agent.conf
 
 # 每 6 小时跑一次；分钟位按节点名散列错峰，避免全舰队同一分钟齐发
 MIN=$(( $(printf '%s' "$NAME" | cksum | cut -d' ' -f1) % 60 ))
-printf '%s */6 * * * root /usr/local/bin/sz-agent.sh >/dev/null 2>&1\n' "$MIN" > /etc/cron.d/sz-agent
+if [ -d /etc/cron.d ] || command -v cron >/dev/null 2>&1 || command -v crond >/dev/null 2>&1; then
+  mkdir -p /etc/cron.d
+  printf '%s */6 * * * root /usr/local/bin/sz-agent.sh >/dev/null 2>&1\n' "$MIN" > /etc/cron.d/sz-agent
+  echo "自动复检：每 6 小时（/etc/cron.d/sz-agent）"
+elif command -v crontab >/dev/null 2>&1; then
+  ( crontab -l 2>/dev/null | grep -v 'sz-agent.sh' || true
+    printf '%s */6 * * * /usr/local/bin/sz-agent.sh >/dev/null 2>&1\n' "$MIN" ) | crontab -
+  echo "自动复检：每 6 小时（root crontab）"
+else
+  echo "⚠️ 这台没有 cron：agent 已装好、即时检测照常，但自动复检未生效（装好 cron 后重跑本安装命令即可）"
+fi
 
 echo "已安装，立即检测一次……"
 /usr/local/bin/sz-agent.sh
-echo "✅ 完成：每 6 小时自动检测并上报（/etc/cron.d/sz-agent）"
+echo "✅ 完成"
