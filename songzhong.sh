@@ -23,14 +23,14 @@ check_stack() {
 
 echo "正在检测 YouTube 对本机出口的地区判定……"
 
-IP4=$(curl -4 -s --max-time 5 https://ipinfo.io/ip 2>/dev/null)
+IP4=$(curl -4 -s --max-time 5 https://api4.ipify.org 2>/dev/null)
 if [ -n "$IP4" ]; then
     check_stack 4 "IPv4" "$IP4"
 else
     echo "IPv4：无 IPv4 出口，跳过"
 fi
 
-IP6=$(curl -6 -s --max-time 5 https://ipinfo.io/ip 2>/dev/null)
+IP6=$(curl -6 -s --max-time 5 https://api64.ipify.org 2>/dev/null)
 if [ -n "$IP6" ]; then
     check_stack 6 "IPv6" "$IP6"
 else
