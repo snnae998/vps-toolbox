@@ -18,9 +18,9 @@ curl -sL "$RAW_BASE/sz-agent.sh" -o /usr/local/bin/sz-agent.sh
 chmod +x /usr/local/bin/sz-agent.sh
 
 cat > /etc/sz-agent.conf <<EOF
-SZ_COLLECTOR=$COLLECTOR
-SZ_TOKEN=$TOKEN
-SZ_NAME=$NAME
+SZ_COLLECTOR="$COLLECTOR"
+SZ_TOKEN="$TOKEN"
+SZ_NAME="$NAME"
 EOF
 chmod 600 /etc/sz-agent.conf
 
