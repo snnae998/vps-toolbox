@@ -9,9 +9,11 @@ COOKIE='YSC=BiCUU3-5Gdk; CONSENT=YES+cb.20220301-11-p0.en+FX+700; GPS=1; VISITOR
 URL='https://www.youtube.com/premium'
 
 # 输出 "状态 地区"：状态 ok/cn/fail/none
+# 探 IP 必须用双栈端点：ipinfo.io 没有 AAAA 记录，-6 永远拿不到地址（旧版踩坑）
 check_stack() {
-    local stack="$1" ip body region
-    ip=$(curl -"$stack" -s --max-time 5 https://ipinfo.io/ip 2>/dev/null)
+    local stack="$1" ip body region probe
+    if [ "$stack" = 6 ]; then probe=https://api64.ipify.org; else probe=https://api4.ipify.org; fi
+    ip=$(curl -"$stack" -s --max-time 5 "$probe" 2>/dev/null)
     [ -z "$ip" ] && { echo "none "; return; }
     body=$(curl -"$stack" -sSL --max-time 10 -H "Accept-Language: en" -b "$COOKIE" "$URL" 2>/dev/null)
     [ -z "$body" ] && { echo "fail "; return; }
@@ -25,8 +27,8 @@ check_stack() {
 
 read -r V4 V4R <<< "$(check_stack 4)"
 read -r V6 V6R <<< "$(check_stack 6)"
-IP4=$(curl -4 -s --max-time 5 https://ipinfo.io/ip 2>/dev/null)
-IP6=$(curl -6 -s --max-time 5 https://ipinfo.io/ip 2>/dev/null)
+IP4=$(curl -4 -s --max-time 5 https://api4.ipify.org 2>/dev/null)
+IP6=$(curl -6 -s --max-time 5 https://api64.ipify.org 2>/dev/null)
 NAME=${SZ_NAME:-$(hostname)}
 
 payload=$(printf '{"name":"%s","ip4":"%s","ip6":"%s","v4":"%s","v4_region":"%s","v6":"%s","v6_region":"%s"}' \
