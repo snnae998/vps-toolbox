@@ -1,6 +1,6 @@
 # VPS 一键工具箱
 
-新机器到手，一条命令搞定初始化、安全加固和存储守护。
+新机器到手，一条命令搞定初始化、安全加固、存储守护和送中检测。
 
 ## 一键使用
 
@@ -22,6 +22,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 6. NodeQuality
 7. 一键Snell
 8. X-UI
+9. 一键检测送中
 0. 退出
 =================================
 ```
@@ -82,6 +83,16 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 
 调用 [X-UI](https://github.com/FranzKafkaYu/x-ui) 安装脚本，部署 Xray 可视化管理面板。
 
+## 9. 一键检测送中
+
+调用本仓库的 [songzhong.sh](songzhong.sh)，检测 YouTube 对本机出口 IP 的地区判定（与 xykt IPQuality 同一口径：抓 YouTube Premium 页面查 `www.google.cn` 信号）。IPv4 / IPv6 分开检测并显示各自出口 IP，约 3 秒出结果；页面打不开时会明确提示无法判定，不会误报未送中。
+
+也可单独运行：
+
+```bash
+bash <(curl -sL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/songzhong.sh)
+```
+
 ## 适用系统
 
 - Debian / Ubuntu（apt）
@@ -96,3 +107,4 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 - 节点综合质量测试：[NodeQuality](https://github.com/LloydAsp/NodeQuality)
 - Snell 一键安装：[Snell.sh](https://git.io/Snell.sh)
 - Xray 可视化面板：[X-UI](https://github.com/FranzKafkaYu/x-ui)
+- 送中检测：本仓库 songzhong.sh（判定口径同 [xykt IPQuality](https://github.com/xykt/IPQuality)）
