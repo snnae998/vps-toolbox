@@ -24,6 +24,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 8. X-UI
 9. 一键检测送中
 10. CF隧道升级
+11. SSH登录提醒
 0. 退出
 =================================
 ```
@@ -105,6 +106,16 @@ bash <(curl -sL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/clou
 ```
 
 常用参数：`--mode docker|systemd` 指定部署方式，`--service <服务名>` / `--container <容器名>` 指定目标，`--skip-version-check` 强制重装。
+
+## 11. SSH登录提醒
+
+调用本仓库的 [tg-ssh-alert.sh](tg-ssh-alert.sh)，每次有人 SSH 登录这台 VPS，Telegram 立刻收到一条提醒（服务器、登录用户、来源 IP、时间）。机制是 PAM `pam_exec` 钩子：只在登录成功后触发，钩子是 `optional`、通知脚本任何情况下都 `exit 0`，TG 挂了也不会挡住登录。机器人 Token 和用户 ID 只存本机 `/etc/tg-ssh-alert.conf`（仅 root 可读），安装前会先发一条测试消息验证 Token。
+
+也可单独运行：
+
+```bash
+bash <(curl -sL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/tg-ssh-alert.sh)
+```
 
 ## 适用系统
 
