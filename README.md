@@ -23,6 +23,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 7. 一键Snell
 8. X-UI
 9. 一键检测送中
+10. CF隧道升级
 0. 退出
 =================================
 ```
@@ -92,6 +93,18 @@ bash <(curl -fsSL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/vp
 ```bash
 bash <(curl -sL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/songzhong.sh)
 ```
+
+## 10. CF隧道升级
+
+调用本仓库的 [cloudflared-upgrade.sh](cloudflared-upgrade.sh)，把 cloudflared 平滑升级到最新版（当前 2026.11.2），覆盖 Docker / Compose / Systemd / OpenRC / 纯二进制五种部署。先起临时进程接管隧道再替换，升级过程不断连；新版带 GitHub digest 校验、失败自动回滚、检测到多种部署时拒绝猜测。
+
+也可单独运行：
+
+```bash
+bash <(curl -sL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/cloudflared-upgrade.sh)
+```
+
+常用参数：`--mode docker|systemd` 指定部署方式，`--service <服务名>` / `--container <容器名>` 指定目标，`--skip-version-check` 强制重装。
 
 ## 适用系统
 
