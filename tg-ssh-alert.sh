@@ -147,6 +147,7 @@ if is_installed; then
     2) do_install ;;
     3) do_uninstall ;;
     0) echo "返回。" ;;
+    "") ;;  # 空输入：手机端易误触回车，直接重显，不报错
     *) echo "无效选项。" ;;
   esac
 else
