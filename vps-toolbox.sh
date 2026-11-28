@@ -163,6 +163,7 @@ init_menu() {
       9) init_update ;;
       10) init_all ;;
       0) return ;;
+      "") ;;  # 空输入：手机端易误触回车，直接重显菜单，不报错
       *) echo "无效选项！"; sleep 1 ;;
     esac
     echo ""
@@ -245,6 +246,7 @@ while true; do
     10) bash <(curl -sL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/cloudflared-upgrade.sh) ;;
     11) bash <(curl -sL https://raw.githubusercontent.com/snnae998/vps-toolbox/main/tg-ssh-alert.sh) ;;
     0) echo "退出。"; exit 0 ;;
+    "") ;;  # 空输入：手机端易误触回车，直接重显菜单，不报错
     *) echo "无效选项，请重新选择！"; sleep 1 ;;
   esac
   echo ""
